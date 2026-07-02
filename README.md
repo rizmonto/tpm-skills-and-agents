@@ -6,10 +6,11 @@
 
 ## 🤔 What is this, in one breath?
 
-Two tools that work as a team:
+Three tools that work as a team:
 
 - 🧑‍🏫 **`skill-teach-tpm`** — the **teacher**. A patient, multi-session coach that builds you a personalized study course (system design, technical/domain knowledge, and behavioral STAR stories) and remembers where you left off.
-- 🕵️ **`agent-tpm-interview-coach`** — the **analyst**. A read-only specialist the teacher (or you) calls on to do two heavy-lifting jobs: **mine your codebase for interview stories**, and **grade your practice answers** like a tough interviewer.
+- 🕵️ **`agent-tpm-interview-coach`** — the **analyst**. A read-only specialist the teacher (or you) calls on to do two heavy-lifting jobs: **mine your whole codebase for a ranked list of interview stories**, and **grade your practice answers** like a tough interviewer.
+- ✍️ **`skill-mine-star-story`** — the **story-writer**. Takes **one** slice of recent work — a code push, a problem you describe, or the current Claude Code session — confirms the plot with you, then **writes one finished STAR story**, embellishing the thin parts and disclosing exactly what it made up.
 
 ```
         YOU (the candidate)
@@ -108,11 +109,15 @@ TPM skills and agents/
 ├── README.md
 ├── skill-teach-tpm/
 │   └── SKILL.md                       ← the teaching skill
+├── skill-mine-star-story/
+│   └── SKILL.md                       ← the story-writer skill
 └── agent-tpm-interview-coach/
     └── agent-tpm-interview-coach.md   ← the analyst agent
 ```
 
 > 🏷️ **Naming convention:** the `skill-` / `agent-` prefixes make the repo self-documenting. A **skill** is a folder with a `SKILL.md` (it runs *in* your conversation, statefully). An **agent** is a single `.md` definition (it runs in its *own* isolated context and reports back).
+
+> 🧩 **Miner vs. story-writer:** the agent's **MINE** mode scans a *whole repo* and returns a *ranked list of candidates* (read-only, never writes). **`skill-mine-star-story`** takes *one* slice of recent work and *writes one finished story*. Use MINE to find what's worth telling; use the skill to actually write one up.
 
 ---
 
@@ -121,8 +126,9 @@ TPM skills and agents/
 Claude Code discovers these from specific folders. Copy them where Claude looks:
 
 ```bash
-# Skill → user-level (available everywhere) or a project's .claude/skills/
+# Skills → user-level (available everywhere) or a project's .claude/skills/
 cp -r skill-teach-tpm ~/.claude/skills/
+cp -r skill-mine-star-story ~/.claude/skills/
 
 # Agent → user-level or a project's .claude/agents/
 cp agent-tpm-interview-coach/agent-tpm-interview-coach.md ~/.claude/agents/
@@ -202,6 +208,29 @@ Teacher: (reads your learning-records, spots the "stakeholder conflict" gap)
   → interviews you for the human details code can't show
   → writes a new brag-book entry + a lesson that drills it
   → maps it into behavioral-questions.md so the gap is now ✅
+```
+
+### Example 5 — ✍️ Writing one story from a recent push (`skill-mine-star-story`)
+```
+You:  /skill-mine-star-story  my last push
+
+Claude (story-writer):
+  Here's the plot I'd tell — confirm before I write it:
+   S: you owned a semantic-cache build for a paid customer on a tight window
+   T: choose the vector-search foundation and own the consequences
+   A: framed it build-vs-buy (pgvector vs. a dedicated vector DB), de-risked
+      with a measured latency test, documented exit criteria
+   R: shipped on schedule, cache hits in ~tens of ms, avoided a second bill
+   Showcases: technical judgment · cost ownership · risk management
+   ⚠️ I'll frame the "customer" and "deadline" as assumptions — correct me.
+
+You:  Yep, but it was internal, not a customer. Go.
+
+  → writes ./brag-book/0001-pgvector-vs-pinecone-decision.md
+  → then discloses what it embellished:
+     • Result "~tens of ms" — placeholder, confirm the real figure  [ASSUMED]
+     • "documented exit criteria" — did you actually write these down? [ASSUMED]
+  → you confirm/correct; it strips the [ASSUMED] tags from what's real. 🎯
 ```
 
 ---
