@@ -1,7 +1,6 @@
 ---
 name: skill-teach-tpm
 description: Stateful, multi-session teaching workspace for Technical Program Manager (TPM) technical-interview prep — system design at TPM altitude, role-related domain/AI knowledge, and competency-tagged STAR stories (a "brag book") grounded in the candidate's real shipped work. Calibrates to the candidate's target company and level.
-disable-model-invocation: true
 argument-hint: "Target role/company + level, or what you want to drill"
 ---
 

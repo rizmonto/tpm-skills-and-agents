@@ -1,7 +1,6 @@
 ---
 name: skill-mine-star-story
 description: Turns one slice of real work — a recent code push (commit/branch/PR), a problem the candidate describes, or the current Claude Code session — into a single polished, TPM-lens STAR story for a Technical Program Manager interview. It confirms the story's plot with the candidate BEFORE writing, produces a rich brag-book entry (technical + product/customer + program-management + leadership + outcome), and when detail is thin it embellishes plausibly, marks every invented field, and discloses those embellishments for confirmation AFTER writing. Companion to skill-teach-tpm (the teacher, which owns the workspace) and agent-tpm-interview-coach (the read-only whole-repo candidate miner). Use when the candidate wants to capture a specific piece of recent work as one finished, interview-ready STAR story — not a ranked list of candidates.
-disable-model-invocation: true
 argument-hint: "A commit/branch/PR, a problem to tell as a story, or 'this session'"
 ---
 
